@@ -22,13 +22,13 @@ const changeColor = (color, delay, doAfter) => {
 
 // Step 3: Calling the step 2 function.
 // EXAMPLE OF CALLBACK HELL.
-changeColor("#FFC54D", 1000, () => {
-  changeColor("#BD4291", 1000, () => {
-    changeColor("#F94C66", 1000, () => {
-      changeColor("#53BF9D", 1000, () => {});
-    });
-  });
-});
+// changeColor("#FFC54D", 1000, () => {
+//   changeColor("#BD4291", 1000, () => {
+//     changeColor("#F94C66", 1000, () => {
+//       changeColor("#53BF9D", 1000, () => {});
+//     });
+//   });
+// });
 
 // Step 4: Another example: Calling a fake API that use callbacks.
 // Just focus on calling the API. Writing promises will be covered in next steps.
@@ -182,3 +182,39 @@ fakeRequest2("money.com/page1")
   .catch((err) => {
     console.log(err);
   });
+
+// Step 7: Creating promises.
+const fakeRequest3 = (url) => {
+  // Promise takes one parameter. A function.
+  // This function have 2 parameters.
+  // "resolve" is called when we want to resolve the Promise object.
+  // "reject" is called when we want to reject the Promise object.
+  // More details is there in Step5.
+  return new Promise((resolve, reject) => {
+    const delay = Math.floor(Math.random() * 5000);
+    setTimeout(() => {
+      if (delay > 3000) {
+        reject(`Connection Timeout. Failed request to ${url}`);
+      } else {
+        resolve(`Hi. This is your data from ${url}`);
+      }
+    }, delay);
+  });
+};
+
+// Another example. Re-writing function introduced on step 2 using Promises.
+// Not a good example though. Above one is more clear.
+const changeColorWithPromise = (color, delay) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      document.body.style.backgroundColor = color;
+      resolve();
+    }, delay);
+  });
+};
+
+// Single line arrow functions => Implicit return.
+changeColorWithPromise("#FFC54D", 1000)
+  .then(() => changeColorWithPromise("#BD4291", 1000))
+  .then(() => changeColorWithPromise("#F94C66", 1000))
+  .then(() => changeColorWithPromise("#53BF9D", 1000));
