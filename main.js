@@ -233,7 +233,7 @@ changeColorWithPromise("#FFC54D", 1000)
   .then(() => changeColorWithPromise("#53BF9D", 1000));
 */
 
-// Step 7: Async functions.
+// Step 8: Async functions.
 // Just syntactic sugar for Promises.
 // Helps to write cleaner asynchronous code.
 
@@ -287,7 +287,7 @@ saveToDB() // Rejected with Error.
   .then((msg) => console.log(msg))
   .catch((err) => console.log(err));
 
-// Step 7: Await keyword.
+// Step 9: Await keyword.
 // Can be used only inside async functions.
 // Will pause the execution of the async function, waiting for a promise to be resolved.
 
