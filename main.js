@@ -226,10 +226,12 @@ const changeColorWithPromise = (color, delay) => {
 };
 
 // Single line arrow functions => Implicit return.
+/*
 changeColorWithPromise("#FFC54D", 1000)
   .then(() => changeColorWithPromise("#BD4291", 1000))
   .then(() => changeColorWithPromise("#F94C66", 1000))
   .then(() => changeColorWithPromise("#53BF9D", 1000));
+*/
 
 // Step 7: Async functions.
 // Just syntactic sugar for Promises.
@@ -284,3 +286,42 @@ saveToDB("I am a developer") // Resolved
 saveToDB() // Rejected with Error.
   .then((msg) => console.log(msg))
   .catch((err) => console.log(err));
+
+// Step 7: Await keyword.
+// Can be used only inside async functions.
+// Will pause the execution of the async function, waiting for a promise to be resolved.
+
+// Rewriting calling of changeColorWithPromise() using Await.
+async function ChangeColorWithPromiseAwait() {
+  await changeColorWithPromise("#FFC54D", 1000);
+  await changeColorWithPromise("#BD4291", 1000);
+  await changeColorWithPromise("#F94C66", 1000);
+  await changeColorWithPromise("#53BF9D", 1000);
+  return "End of Color Change.";
+}
+
+// Hate "then" s? We can include this inside a async function like below (line 308).
+// But, I prefer to mix and match async functions with "then" s like this.
+ChangeColorWithPromiseAwait().then((msg) => console.log(msg));
+
+// Calling ChangeColorWithPromiseAwait inside sync function
+/*
+async function callChangeColorWithPromiseAwait() {
+  const msg = await ChangeColorWithPromiseAwait();
+  console.log(msg);
+}
+callChangeColorWithPromiseAwait();
+*/
+
+// Rewriting calling of fakeRequest2() using Await.
+async function fakeRequest2Await() {
+  const data = await fakeRequest2("money.com/page1");
+  console.log(data);
+  const data1 = await fakeRequest2("money.com/page2");
+  console.log(data1);
+  const data2 = await fakeRequest2("money.com/page3");
+  console.log(data2);
+  // Return nothing this time. Thus, promise will be resolved with undefined.
+}
+
+fakeRequest2Await();
