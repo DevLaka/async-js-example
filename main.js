@@ -230,3 +230,57 @@ changeColorWithPromise("#FFC54D", 1000)
   .then(() => changeColorWithPromise("#BD4291", 1000))
   .then(() => changeColorWithPromise("#F94C66", 1000))
   .then(() => changeColorWithPromise("#53BF9D", 1000));
+
+// Step 7: Async functions.
+// Just syntactic sugar for Promises.
+// Helps to write cleaner asynchronous code.
+
+// 3 main points.
+// 1. Async function implicitly returns a Promise.
+async function hi() {}
+// hi() returns a Promise.
+
+const hi2 = async () => {};
+// hi2() returns a Promise.
+
+// 2. If the function returns a value, the Promise will be resolved with that value.
+async function hi3() {
+  return "Hi";
+}
+// hi3() returns a Promise resolved with value "Hi".
+hi3().then((data) => {
+  console.log("PROMISE RESOLVED hi3: ", data);
+});
+
+// 3. If the function throws an exception, the Promise will be rejected.
+async function hi4() {
+  throw new Error("YOU GOT REJECTED");
+}
+// hi4() returns a Promise rejected with Error with value "YOU GOT REJECTED".
+async function hi5() {
+  throw "REJECTED AGAIN";
+}
+// hi4() returns a Promise rejected with value "REJECTED AGAIN".
+
+hi4()
+  .then((data) => {
+    console.log("PROMISE RESOLVED hi4: ", data);
+  })
+  .catch((err) => {
+    console.log("PROMISE REJECTED hi4");
+    console.log(err);
+  });
+
+// Another Example
+const saveToDB = async (data) => {
+  if (!data) throw new Error("Data is not defined");
+  return "Data saved to DB";
+};
+
+saveToDB("I am a developer") // Resolved
+  .then((msg) => console.log(msg))
+  .catch((err) => console.log(err));
+
+saveToDB() // Rejected with Error.
+  .then((msg) => console.log(msg))
+  .catch((err) => console.log(err));
