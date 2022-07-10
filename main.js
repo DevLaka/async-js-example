@@ -324,4 +324,36 @@ async function fakeRequest2Await() {
   // Return nothing this time. Thus, promise will be resolved with undefined.
 }
 
-fakeRequest2Await();
+// fakeRequest2Await();
+
+// Step 8: Handling errors in async functions.
+async function fakeRequest2AwaitWithoutErrorHandling() {
+  const data = await fakeRequest2("money.com/page1");
+  console.log(data);
+  const data1 = await fakeRequest2("money.com/page2");
+  console.log(data1);
+  const data2 = await fakeRequest2("money.com/page3");
+  console.log(data2);
+
+  // Problem: If any of the above code throws an error, the code after will never run.
+  // To fix this we have to handle errors.
+  console.log("Function executed successfully");
+}
+
+// Handling errors
+async function fakeRequest2AwaitWithErrorHandling() {
+  try {
+    const data = await fakeRequest2("money.com/page1");
+    console.log(data);
+    const data1 = await fakeRequest2("money.com/page2");
+    console.log(data1);
+    const data2 = await fakeRequest2("money.com/page3");
+    console.log(data2);
+  } catch (err) {
+    console.log("ERROR: ", err);
+  }
+  // Code below runs even though the above code throws an error.
+  console.log("Function executed successfully");
+}
+
+fakeRequest2AwaitWithErrorHandling();
